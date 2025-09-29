@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title> Sistema de Pedido de Almoço </title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+</head>
+<body>
+    <h2>Lista de Pedidos</h2>
+
+    {% if pedidos %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Aluno</th>
+                    <th>Prato</th>
+                    <th>Observações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pedido in pedidos %}
+                    <tr>
+                        <td>{{ pedido.nome }}</td>
+                        <td>{{ pedido.prato }}</td>
+                        <td>{{ pedido.observacoes|default:"-" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhum pedido realizado ainda.</p>
+    {% endif %}
+</body>
+<a href="{% url 'add_pedido' %}" class="button">Fazer Novo Pedido</a>
+<a href="{% url 'logout' %}"> Sair </a>
+
