@@ -53,15 +53,16 @@ def relatorio_pedidos(request):
     pedidos = Pedido.objects.all()
     total_pedidos = pedidos.count()
     pratos_unicos = set(pedido.prato for pedido in pedidos)
+    # Lista completa de pedidos
     lista_completa = [
         {
             "nome": pedido.nome,
             "prato": pedido.prato,
-            "observacao": pedido.observacoes
+            "observacao": pedido.observacoes or ""
         }
         for pedido in pedidos
     ]
-    # Resumo por prato convertido para dicionário
+    # Resumo por prato
     resumo_por_prato = dict(Counter(pedido.prato for pedido in pedidos))
     context = {
         "total_pedidos": total_pedidos,
@@ -70,6 +71,7 @@ def relatorio_pedidos(request):
         "resumo_por_prato": resumo_por_prato
     }
     return render(request, "relatorio.html", context)
+
 
 # LOGOUT
 @login_required

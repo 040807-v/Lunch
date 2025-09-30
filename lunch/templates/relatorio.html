@@ -13,7 +13,7 @@
     <!-- Header -->
     <header class="site-header">
         <h1>Relatório de Pedidos</h1>
-        <p>Visualize o resumo de todos os pedidos registrados</p>
+        <p>Visualize todos os pedidos registrados</p>
     </header>
 
     <!-- Estatísticas -->
@@ -73,12 +73,14 @@
     </div>
 
 </div>
+
 <!-- Navegação / Ações -->
 <nav class="navigation">
     <div class="nav-container">
-        <a href="{% url 'pedido' %}" class="btn btn-secondary">↩️ Cancelar</a>
+        <a href="{% url 'pedido' %}" class="nav-link">📋 Lista de Pedidos</a>
     </div>
 </nav>
+
 <!-- Script para copiar -->
 <script>
     function copiarLista() {
