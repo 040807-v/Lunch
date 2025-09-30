@@ -29,6 +29,16 @@
                             <div class="pedido-obs">
                                 {{ pedido.observacoes|default:"Sem observações" }}
                             </div>
+
+                            <!-- Ações do CRUD -->
+                            <div class="form-buttons" style="margin-top: 10px;">
+                                <a href="{% url 'update_pedido' pedido.id %}" class="btn btn-secondary">✏️ Editar</a>
+
+                                <form method="post" action="{% url 'delete_pedido' pedido.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">🗑️ Excluir</button>
+                                </form>
+                            </div>
                         </div>
                     {% endfor %}
                 {% else %}
@@ -55,4 +65,3 @@
     </div>
 </body>
 </html>
-
