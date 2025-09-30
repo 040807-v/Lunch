@@ -6,26 +6,47 @@
     <meta charset="UTF-8">
     <title>Novo Pedido de Almoço</title>
     <link rel="stylesheet" href="{% static 'css/theme.css' %}">
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
-    <header>
-        <h1>Novo Pedido de Almoço</h1>
-        <nav>
-            <a href="{% url 'pedido' %}">Lista de Pedidos</a>
-        </nav>
-    </header>
+    <div class="container">
 
-    <main>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Enviar Pedido</button>
-        </form>
-    </main>
+        <!-- Header -->
+        <header class="site-header">
+            <h1>Novo Pedido de Almoço</h1>
+            <p>Preencha os dados abaixo para registrar seu pedido</p>
 
-    <footer>
-        <p>&copy; 2025 - Sistema de Pedido de Almoço</p>
-    </footer>
-</body>
-</html>
+            <nav class="navigation">
+                <div class="nav-container">
+                    <a href="{% url 'pedido' %}" class="nav-link">📋 Lista de Pedidos</a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Formulário -->
+        <main>
+            <div class="card">
+                <h2 class="card-title">Formulário de Pedido</h2>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        {{ form.nome.label_tag }}
+                        {{ form.nome }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.prato.label_tag }}
+                        {{ form.prato }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.observacoes.label_tag }}
+                        {{ form.observacoes }}
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="btn btn-primary">✅ Enviar Pedido</button>
+                        <a href="{% url 'pedido' %}" class="btn btn-secondary">↩️ Cancelar</a>
+                    </div>
+
