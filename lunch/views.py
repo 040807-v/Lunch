@@ -31,11 +31,6 @@ def add_pedido(request):
 def user_login(request):
     return render(request, "login.html")
 
-@login_required
-def user_logout(request):
-    logout(request) 
-    return redirect('login')  
-
 def signup(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)

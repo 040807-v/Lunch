@@ -35,5 +35,9 @@
     {% endif %}
 </body>
 <a href="{% url 'add_pedido' %}" class="button">Fazer Novo Pedido</a>
-<a href="{% url 'logout' %}"> Sair </a>
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit" class="button">Sair</button>
+</form>
+
 
