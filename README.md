@@ -1,17 +1,17 @@
-# 🍽️ Lunch - Sistema de Pedidos de Refeição
-Este é um sistema web de pedidos de refeição desenvolvido com Django.  
-Ele permite o cadastro de refeições, pedidos, autenticação de usuários e muito mais.
+# 🍽️ Lunch - Meal Ordering System
+This is a web-based meal ordering system developed with Django.
+It allows meal registration, order management, user authentication, and much more.
 
-## 🚀 Funcionalidades
-- Cadastro e login de usuários
-- Cadastro de refeições
-- Registro de pedidos com observações
-- Visualização e edição de pedidos
-- Validação de dados via formulários
-- Interface simples e intuitiva
+## 🚀 Features
+User registration and login
+Meal registration
+Order creation with notes/remarks
+Order viewing and editing
+Data validation via forms
+Simple and intuitive interface
 
-## 🛠️ Tecnologias Utilizadas
-- Python 3
-- Django
-- SQLite3
-- HTML/CSS (Templates)
+## 🛠️ Technologies Used
+Python 3
+Django
+SQLite3
+HTML/CSS (Templates)
