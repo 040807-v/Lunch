@@ -46,6 +46,11 @@ def delete_pedido(request, pk):
         return redirect('pedido')
     return render(request, 'pedidodelete.html', {'pedido': pedido_obj})
 
+# RELATORIO
+@login_required
+def relatorio(request):
+    return render(request, 'relatorio.html')
+
 # LOGOUT
 @login_required
 def logout(request):
