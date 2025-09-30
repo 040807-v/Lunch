@@ -6,7 +6,7 @@ urlpatterns = [
     path('', views.pedido, name= 'pedido'),
     path('add/', views.add_pedido, name= 'add_pedido'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
-    
+    path('relatorio/', views.relatorio_pedidos, name= 'relatorio'),
     path('update/<int:pk>/', views.update_pedido, name='update_pedido'),
     path('delete/<int:pk>/', views.delete_pedido, name='delete_pedido'),
 ]

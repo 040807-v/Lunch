@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de Pedidos</title>
+    <link rel="stylesheet" href="{% static 'lunch/css/style.css' %}">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <header class="site-header">
+        <h1>Relatório de Pedidos</h1>
+        <p>Visualize todos os pedidos registrados</p>
+    </header>
+
+    <!-- Estatísticas -->
+    <div class="stats-grid">
+        <div class="stat-card orange">
+            <p>Total de Pedidos</p>
+            <div class="stat-number">{{ total_pedidos }}</div>
+        </div>
+        <div class="stat-card blue">
+            <p>Pratos Únicos</p>
+            <div class="stat-number">{{ pratos_unicos }}</div>
+        </div>
+    </div>
+
+    <!-- Botão copiar -->
+    <div style="text-align: right; margin-bottom: 20px;">
+        <button class="btn btn-primary" onclick="copiarLista()">📋 Copiar Lista</button>
+    </div>
+
+    <!-- Lista Completa -->
+    <div class="card">
+        <h2 class="card-title">Lista Completa</h2>
+        {% if lista_completa %}
+            {% for item in lista_completa %}
+                <div class="pedido-item">
+                    <div class="pedido-nome">{{ item.nome }}</div>
+                    <div class="pedido-prato">{{ item.prato }}</div>
+                    {% if item.observacao %}
+                        <div class="pedido-obs">{{ item.observacao }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">😕</div>
+                <div class="empty-text">Nenhum pedido encontrado.</div>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Resumo por Prato -->
+    <div class="card" style="margin-top: 40px;">
+        <h2 class="card-title">Resumo por Prato</h2>
+        {% if resumo_por_prato %}
+            {% for prato, quantidade in resumo_por_prato.items %}
+                <div class="resumo-item">
+                    <span>{{ prato }}</span>
+                    <span class="resumo-quantidade">{{ quantidade }}</span>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">😕</div>
+                <div class="empty-text">Nenhum prato para resumir.</div>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+
+<!-- Navegação / Ações -->
+<nav class="navigation">
+    <div class="nav-container">
+        <a href="{% url 'pedido' %}" class="nav-link">📋 Lista de Pedidos</a>
+    </div>
+</nav>
+
+<!-- Script para copiar -->
+<script>
+    function copiarLista() {
+        const itens = [...document.querySelectorAll('.pedido-item')].map(item => {
+            const nome = item.querySelector('.pedido-nome')?.innerText || '';
+            const prato = item.querySelector('.pedido-prato')?.innerText || '';
+            const obs = item.querySelector('.pedido-obs')?.innerText || '';
+            return `${nome} - ${prato}${obs ? " (" + obs + ")" : ""}`;
+        }).join('\n');
+
+        navigator.clipboard.writeText(itens).then(() => {
+            alert("Lista copiada para a área de transferência!");
+        });
+    }
+</script>
+
+</body>
+</html>
