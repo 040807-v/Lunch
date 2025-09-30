@@ -7,7 +7,7 @@ from .forms import PedidoForm, SignUpForm
 # LISTAGEM DE PEDIDOS
 @login_required
 def pedido(request):
-    pedidos = Pedido.objects.all()
+    pedidos = Pedido.objects.filter(usuario=request.user)  # 🔹 só do usuário logado
     return render(request, 'pedidolist.html', {'pedidos': pedidos})
 
 # ADICIONAR PEDIDO
@@ -16,18 +16,20 @@ def add_pedido(request):
     if request.method == 'POST':
         form = PedidoForm(request.POST)
         if form.is_valid():
-            form.save()
+            pedido = form.save(commit=False)
+            pedido.usuario = request.user  # 🔹 vincula ao usuário logado
+            pedido.save()
             return redirect('pedido')
     else:
         form = PedidoForm()
-        # Se quiser limitar os pratos disponíveis
         form.fields['prato'].queryset = Refeicao.objects.all()
     return render(request, 'pedidoform.html', {'form': form})
+
 
 # ATUALIZAR PEDIDO
 @login_required
 def update_pedido(request, pk):
-    pedido_obj = get_object_or_404(Pedido, pk=pk)
+    pedido_obj = get_object_or_404(Pedido, pk=pk, usuario=request.user)
     if request.method == 'POST':
         form = PedidoForm(request.POST, instance=pedido_obj)
         if form.is_valid():
@@ -40,7 +42,7 @@ def update_pedido(request, pk):
 # EXCLUIR PEDIDO
 @login_required
 def delete_pedido(request, pk):
-    pedido_obj = get_object_or_404(Pedido, pk=pk)
+    pedido_obj = get_object_or_404(Pedido, pk=pk, usuario=request.user)
     if request.method == 'POST':
         pedido_obj.delete()
         return redirect('pedido')
@@ -62,12 +64,13 @@ def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)  # loga o usuário após cadastro
-            return redirect('pedido')
+            form.save()  # cria o usuário
+            return redirect('login')  # 🔹 vai para tela de login
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+
 
 # LOGIN (apenas renderiza o template)
 def user_login(request):
