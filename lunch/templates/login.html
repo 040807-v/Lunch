@@ -1,20 +1,41 @@
 {% load static %}
 
 <!doctype html>
-<html>
+<html lang="pt-br">
 <head>
+  <meta charset="UTF-8">
   <title>Login</title>
-  <link rel="stylesheet" href="{% static 'css/theme.css' %}">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- import arquivos css -->
+  <link rel="stylesheet" href="{% static 'lunch/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'lunch/css/login.css' %}">
 </head>
-<body class="container mt-5">
-  <h2>Login</h2>
+<body class="login-page">
 
-  <form method="post">
-    {{ form.as_p }}
-    {% csrf_token %}
+  <div class="login-container card">
+    <!-- Imagem de destaque -->
+    <div class="login-image">
+      <img src="{% static 'lunch/img/login-banner.png' %}" alt="Banner de Login">
+    </div>
 
-    <button type="submit" class="btn btn-primary">Entrar</button>
-  </form>
+    <!-- Título -->
+    <h2 class="card-title">Acesso ao Sistema</h2>
+
+    <!-- Formulário -->
+    <form method="post" class="login-form">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+      </div>
+      <div class="form-group">
+        {{ form.password.label_tag }}
+        {{ form.password }}
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Entrar</button>
+    </form>
+  </div>
+
 </body>
 </html>

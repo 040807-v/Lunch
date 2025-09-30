@@ -1,0 +1,32 @@
+/* login.css - estilos só da página de login */
+
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f3f4f6;
+    min-height: 100vh;
+}
+
+.login-container {
+    max-width: 400px;
+    width: 100%;
+    padding: 30px;
+    text-align: center;
+}
+
+.login-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.login-form .form-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.w-100 {
+    width: 100%;
+}

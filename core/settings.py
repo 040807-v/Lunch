@@ -119,6 +119,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
+# Para ambiente de produção (quando você rodar collectstatic)
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "pedido"
 LOGOUT_REDIRECT_URL = "login"
