@@ -116,11 +116,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATIC_URL = "static/"
 
-# Para ambiente de produção (quando você rodar collectstatic)
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+# Pasta de arquivos estáticos durante desenvolvimento
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+# Pasta onde o collectstatic vai juntar tudo (produção)
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "pedido"
