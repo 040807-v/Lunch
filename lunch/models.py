@@ -12,4 +12,4 @@ class Pedido(models.Model):
     create_at = models.DateTimeField(auto_now= True)
     
     def __str__(self):
-        return self.nome
+        return f"{self.nome_cliente} - {self.prato}"

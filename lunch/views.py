@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from collections import Counter
 from .models import Pedido, Refeicao
 from .forms import PedidoForm, SignUpForm
 
@@ -48,8 +49,27 @@ def delete_pedido(request, pk):
 
 # RELATORIO
 @login_required
-def relatorio(request):
-    return render(request, 'relatorio.html')
+def relatorio_pedidos(request):
+    pedidos = Pedido.objects.all()
+    total_pedidos = pedidos.count()
+    pratos_unicos = set(pedido.prato for pedido in pedidos)
+    lista_completa = [
+        {
+            "nome": pedido.nome,
+            "prato": pedido.prato,
+            "observacao": pedido.observacoes
+        }
+        for pedido in pedidos
+    ]
+    # Resumo por prato convertido para dicionário
+    resumo_por_prato = dict(Counter(pedido.prato for pedido in pedidos))
+    context = {
+        "total_pedidos": total_pedidos,
+        "pratos_unicos": len(pratos_unicos),
+        "lista_completa": lista_completa,
+        "resumo_por_prato": resumo_por_prato
+    }
+    return render(request, "relatorio.html", context)
 
 # LOGOUT
 @login_required
