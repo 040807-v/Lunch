@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Excluir Pedido</title>
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+</head>
+<body>
+    <div class="container">
+
+        <!-- Header -->
+        <header class="site-header">
+            <h1>Excluir Pedido</h1>
+            <p>Confirme a exclusão do pedido abaixo</p>
+        </header>
+
+        <!-- Card de confirmação -->
+        <main>
+            <div class="card">
+                <p>Tem certeza que deseja excluir o pedido de <strong>{{ pedido.nome }}</strong>?</p>
+
+                <form method="post" style="margin-top: 20px;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">🗑️ Sim, excluir</button>
+                    <a href="{% url 'pedido' %}" class="btn btn-secondary">↩️ Cancelar</a>
+                </form>
+            </div>
+        </main>
+
+        <!-- Footer -->

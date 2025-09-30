@@ -20,9 +20,9 @@ from django.contrib.auth import views as auth_views
 from lunch import views as lunch_views
 
 urlpatterns = [
+    path('', auth_views.LoginView.as_view(template_name="login.html"), name="login"), 
     path('admin/', admin.site.urls),
     path('food/', include('lunch.urls'), name= "lunch_urls"),
-    path("login/", auth_views.LoginView.as_view(template_name="login.html"), name="login"),
     path("logout/", auth_views.LogoutView.as_view(next_page="login"), name="logout"),
     path("signup/", lunch_views.signup, name="signup")
 ]

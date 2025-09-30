@@ -4,40 +4,64 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title> Sistema de Pedido de Almoço </title>
+    <title>Sistema de Pedido de Almoço</title>
     <link rel="stylesheet" href="{% static 'css/theme.css' %}">
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
-    <h2>Lista de Pedidos</h2>
+    <div class="container">
 
-    {% if pedidos %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Aluno</th>
-                    <th>Prato</th>
-                    <th>Observações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for pedido in pedidos %}
-                    <tr>
-                        <td>{{ pedido.nome }}</td>
-                        <td>{{ pedido.prato }}</td>
-                        <td>{{ pedido.observacoes|default:"-" }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>Nenhum pedido realizado ainda.</p>
-    {% endif %}
+        <!-- Header -->
+        <header class="site-header">
+            <h1>Sistema de Pedido de Almoço</h1>
+            <p>Gerencie os pedidos de forma rápida e organizada</p>
+        </header>
+
+        <!-- Conteúdo principal -->
+        <main>
+            <div class="card">
+                <h2 class="card-title">📋 Lista de Pedidos</h2>
+
+                {% if pedidos %}
+                    {% for pedido in pedidos %}
+                        <div class="pedido-item">
+                            <div class="pedido-nome">{{ pedido.nome }}</div>
+                            <div class="pedido-prato">{{ pedido.prato }}</div>
+                            <div class="pedido-obs">
+                                {{ pedido.observacoes|default:"Sem observações" }}
+                            </div>
+
+                            <!-- Ações do CRUD -->
+                            <div class="form-buttons" style="margin-top: 10px;">
+                                <a href="{% url 'update_pedido' pedido.id %}" class="btn btn-secondary">✏️ Editar</a>
+
+                                <form method="post" action="{% url 'delete_pedido' pedido.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">🗑️ Excluir</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <div class="empty-icon">🍽️</div>
+                        <p class="empty-text">Nenhum pedido realizado ainda.</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Navegação / Ações -->
+            <nav class="navigation">
+                <div class="nav-container">
+                    <a href="{% url 'add_pedido' %}" class="nav-link active">➕ Novo Pedido</a>
+                </div>
+            </nav>
+
+            <!-- Botão de logout -->
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">🚪 Sair</button>
+            </form>
+        </main>
+    </div>
 </body>
-<a href="{% url 'add_pedido' %}" class="button">Fazer Novo Pedido</a>
-<form method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit" class="button">Sair</button>
-</form>
-
-
+</html>
