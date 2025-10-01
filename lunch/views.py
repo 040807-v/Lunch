@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 from collections import Counter
 from .models import Pedido, Refeicao
 from .forms import PedidoForm, SignUpForm
@@ -50,6 +51,10 @@ def delete_pedido(request, pk):
 # RELATORIO
 @login_required
 def relatorio_pedidos(request):
+     # 🔹 só staff pode acessar
+    if not request.user.userprofile.isStaff:
+        return HttpResponseForbidden("Você não tem permissão para acessar este relatório.")
+
     pedidos = Pedido.objects.all()
     total_pedidos = pedidos.count()
     pratos_unicos = set(pedido.prato for pedido in pedidos)
